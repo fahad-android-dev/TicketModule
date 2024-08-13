@@ -7,8 +7,11 @@ import com.orbits.ticketmodule.helper.WebSocketClient
 import com.orbits.ticketmodule.interfaces.MessageListener
 import com.orbits.ticketmodule.mvvm.comfirmation.model.TransactionData
 import com.google.gson.Gson
+import com.google.gson.JsonArray
+import com.google.gson.JsonElement
 import com.orbits.ticketmodule.mvvm.main.model.ProductListDataModel
 import com.orbits.ticketmodule.mvvm.main.model.parseJsonData
+import kotlin.random.Random
 
 class MainViewModel : ViewModel() , MessageListener {
 
@@ -28,6 +31,8 @@ class MainViewModel : ViewModel() , MessageListener {
         isConnected = true
         val jsonObject = JsonObject()
         jsonObject.addProperty("message", "Connection")
+        jsonObject.addProperty("ticketType", "TicketType")
+        jsonObject.addProperty("ticketId", "007")
 
         if (isConnected) {
             webSocketClient?.sendMessage(jsonObject)
@@ -36,6 +41,10 @@ class MainViewModel : ViewModel() , MessageListener {
             Log.e("WebSocketViewModel", "WebSocket is not connected, cannot send message.")
         }
 
+    }
+
+    fun generateRandomId(): Int {
+        return Random.nextInt(100, 1000)
     }
 
     fun sendMessage(message: JsonObject) {
@@ -56,9 +65,10 @@ class MainViewModel : ViewModel() , MessageListener {
         /*dataModel = jsonObject
         println("here is model 2222 $dataModel")*/
 
-        if (jsonObject.has("tokenNo")){
+        if (jsonObject.has("transaction")){
             dataModel = jsonObject
             println("here is data with token $dataModel")
+
         }else {
             val items = parseJsonData(jsonObject)
             println("Parsed items: $items")
@@ -82,13 +92,5 @@ class MainViewModel : ViewModel() , MessageListener {
 
     }
 
-    private fun parseJsonToModel(jsonString: String): TransactionData? {
-        return try {
-            val gson = Gson()
-            gson.fromJson(jsonString, TransactionData::class.java)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            null
-        }
-    }
+
 }

@@ -40,7 +40,6 @@ class MainActivity : BaseActivity(){
 
     private fun initLeftNavMenuDrawer() {
         binding.navigationView.setupWithNavController(navController)
-
     }
 
     private fun initBottomTabs() {

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Websocket Client</string>
+    <string name="app_name" translatable="false">Ticket Dispenser</string>
 
     <string name="pushwoosh_app_id_dev" translatable="false">add_app_id_(dev)_here</string>
     <string name="pushwoosh_app_id_live" translatable="false">add_app_id_(live)_here</string>
@@ -178,5 +178,7 @@
     <string name="your_payment_was_unsuccessful">Your Payment Was UnSuccessful</string>
     <string name="your_payment_was_successful">Your Payment Was Successful</string>
     <string name="ticket">Ticket</string>
+    <string name="token_no">Token No</string>
+    <string name="token_no_issued">Token No Issued</string>
 
 </resources>

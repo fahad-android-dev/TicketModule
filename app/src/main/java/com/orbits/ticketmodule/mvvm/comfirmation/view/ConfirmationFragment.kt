@@ -69,7 +69,8 @@ class ConfirmationFragment : BaseFragment() {
 
     private fun setData(){
         val model = mActivity.viewModel.dataModel
-        binding.txtTitle.text = "Token Number : ${model?.get("tokenNo")?.asString}"
+        val token = model?.getAsJsonObject("transaction")?.get("token")?.asString
+        binding.txtTokenValue.text = token
         binding.txtServiceName.text = "Service Name : ${model?.get("serviceName")?.asString}"
     }
 

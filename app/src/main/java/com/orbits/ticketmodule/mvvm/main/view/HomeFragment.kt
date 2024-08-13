@@ -156,6 +156,7 @@ class HomeFragment : BaseFragment() {
         val jsonObject = JsonObject()
         jsonObject.addProperty("serviceId", serviceId)
         jsonObject.addProperty("serviceType", serviceType)
+        jsonObject.addProperty("ticketType", "TicketType")
 
         mActivity.viewModel.webSocketClient?.sendMessage(jsonObject)
         Log.d("FragmentTwo", "Sending message: $jsonObject")
