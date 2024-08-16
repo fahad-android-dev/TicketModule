@@ -67,7 +67,6 @@ class HomeFragment : BaseFragment() {
             title = getString(R.string.ticket),
             isBackArrow = false,
             navController = findNavController(),
-            iconTwo = R.drawable.ic_language,
             toolbarClickListener = object : CommonInterfaceClickEvent {
                 override fun onToolBarListener(type: String) {
                     when (type) {
@@ -104,7 +103,7 @@ class HomeFragment : BaseFragment() {
                         }
 
                         Constants.TOOLBAR_ICON_TWO -> {
-                            showChangeLanguageAlert()
+                           // showChangeLanguageAlert()
                         }
                     }
                 }
