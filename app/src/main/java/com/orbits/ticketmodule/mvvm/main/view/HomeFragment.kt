@@ -33,6 +33,7 @@ class HomeFragment : BaseFragment() {
     private lateinit var binding: FragmentHomeBinding
     private var productListAdapter = ProductListAdapter()
     private var arrListServices = ArrayList<ProductListDataModel>()
+    private var ticketId = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,6 +96,7 @@ class HomeFragment : BaseFragment() {
                                             println("here is list ${mActivity.viewModel.dataList}")
                                             if (mActivity.viewModel.dataList.isNotEmpty()) {
                                                 setData(mActivity.viewModel.dataList)
+                                                ticketId = generateCustomId()
                                             }
                                         }
                                     }
@@ -156,9 +158,16 @@ class HomeFragment : BaseFragment() {
         jsonObject.addProperty("serviceId", serviceId)
         jsonObject.addProperty("serviceType", serviceType)
         jsonObject.addProperty("ticketType", "TicketType")
+        jsonObject.addProperty("ticketId",ticketId)
 
         mActivity.viewModel.webSocketClient?.sendMessage(jsonObject)
         Log.d("FragmentTwo", "Sending message: $jsonObject")
+    }
+
+    var counter = 1
+
+    fun generateCustomId(): String {
+        return "T${counter++}"
     }
 
     override fun onResume() {

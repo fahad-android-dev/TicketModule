@@ -30,9 +30,7 @@ class MainViewModel : ViewModel() , MessageListener {
 
         isConnected = true
         val jsonObject = JsonObject()
-        jsonObject.addProperty("message", "Connection")
-        jsonObject.addProperty("ticketType", "TicketType")
-        jsonObject.addProperty("ticketId", "007")
+        jsonObject.addProperty("connection", "Connection")
 
         if (isConnected) {
             webSocketClient?.sendMessage(jsonObject)
@@ -43,9 +41,6 @@ class MainViewModel : ViewModel() , MessageListener {
 
     }
 
-    fun generateRandomId(): Int {
-        return Random.nextInt(100, 1000)
-    }
 
     fun sendMessage(message: JsonObject) {
         webSocketClient?.sendMessage(message)
@@ -91,6 +86,9 @@ class MainViewModel : ViewModel() , MessageListener {
         }*/
 
     }
+
+
+
 
 
 }
