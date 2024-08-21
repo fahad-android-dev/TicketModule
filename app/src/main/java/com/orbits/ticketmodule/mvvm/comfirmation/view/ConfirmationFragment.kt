@@ -1,6 +1,10 @@
 package com.orbits.ticketmodule.mvvm.comfirmation.view
 
+import android.annotation.SuppressLint
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +17,9 @@ import com.orbits.ticketmodule.helper.BaseFragment
 import com.orbits.ticketmodule.helper.Constants
 import com.orbits.ticketmodule.helper.Dialogs
 import com.orbits.ticketmodule.helper.Extensions
+import com.orbits.ticketmodule.helper.FileConfig.image_FilePaths
+import com.orbits.ticketmodule.helper.FileConfig.readExcelFile
+import com.orbits.ticketmodule.helper.FileConfig.readImageFile
 import com.orbits.ticketmodule.helper.PrefUtils.saveServerAddress
 import com.orbits.ticketmodule.helper.helper_model.ServerAddressModel
 import com.orbits.ticketmodule.interfaces.CommonInterfaceClickEvent
@@ -21,6 +28,7 @@ import com.orbits.ticketmodule.mvvm.main.view.MainActivity
 class ConfirmationFragment : BaseFragment() {
     private lateinit var mActivity: MainActivity
     private lateinit var binding : FragmentConfirmationBinding
+    private var pos = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +75,27 @@ class ConfirmationFragment : BaseFragment() {
         )
     }
 
+    @SuppressLint("ResourceType")
     private fun setData(){
+        val colors = readExcelFile(
+            Environment.getExternalStorageDirectory()
+                .toString() + "/Ticket_Config/Config.xls"
+        )
+
+        println("here is all colors $colors")
+        val backgroundColor = colors[Constants.TICKET_CONFIRM_COLOR]
+        println("here is bg color $backgroundColor")
+        if (backgroundColor != null) {
+            println("here is bg applied")
+            binding.main.setBackgroundColor(Color.parseColor(backgroundColor))
+        }
+
+        readImageFile()
+        if (image_FilePaths?.size == 1) {
+            binding.ivLogo.setImageDrawable(Drawable.createFromPath(image_FilePaths?.get(pos)))
+        }
+
+
         val model = mActivity.viewModel.dataModel
         val token = model?.getAsJsonObject("transaction")?.get("token")?.asString
         binding.txtTokenValue.text = token

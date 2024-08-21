@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.orbits.ticketmodule"
-        minSdk = 25
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -56,6 +56,8 @@ dependencies {
     implementation(libs.socket)
     implementation(libs.datastore)
     implementation(libs.gson)
+    implementation(libs.poi)
+    implementation(libs.poi.xml)
     implementation(libs.datastorePref)
     implementation(libs.androidx.constraintlayout)
     testImplementation(libs.junit)

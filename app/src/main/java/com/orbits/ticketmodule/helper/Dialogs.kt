@@ -5,20 +5,19 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.view.*
-import android.widget.TextView
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.orbits.ticketmodule.R
 import com.orbits.ticketmodule.databinding.LayoutCustomAlertBinding
 import com.orbits.ticketmodule.databinding.LayoutGenerateCodeDialogBinding
 import com.orbits.ticketmodule.databinding.LayoutPairingDialogBinding
 import com.orbits.ticketmodule.helper.Global.getDimension
 import com.orbits.ticketmodule.helper.PrefUtils.getServerAddress
-import com.orbits.ticketmodule.helper.AlertDialogInterface
-import com.orbits.ticketmodule.helper.Global.getTypeFace
-import com.orbits.ticketmodule.interfaces.WheelViewEvent
 
 object Dialogs {
 
@@ -168,37 +167,6 @@ object Dialogs {
         }
     }
 
-    fun showWheelView(
-        activity: Activity,
-        arrayListData: ArrayList<String>,
-        listener: WheelViewEvent
-    ) {
-        val parentView = activity.layoutInflater.inflate(R.layout.layout_bottom_sheet_picker, null)
-        val bottomSheerDialog = BottomSheetDialog(activity)
-        bottomSheerDialog.setContentView(parentView)
-        bottomSheerDialog.setCanceledOnTouchOutside(false)
-        bottomSheerDialog.setCancelable(false)
-        val wheelView = parentView.findViewById(R.id.wheelView) as WheelView
-        val txtDone = parentView.findViewById(R.id.txtDone) as TextView
-        val txtCancel = parentView.findViewById(R.id.txtCancel) as TextView
-        txtCancel.typeface = getTypeFace(activity, Constants.fontMedium)
-        txtDone.typeface = getTypeFace(activity, Constants.fontMedium)
-
-        try {
-            if (arrayListData.isNotEmpty()) {
-                wheelView.setItems(arrayListData)
-                txtCancel.setOnClickListener {
-                    bottomSheerDialog.dismiss()
-                }
-                txtDone.setOnClickListener {
-                    bottomSheerDialog.dismiss()
-                    listener.onDoneClicked(wheelView.seletedIndex)
-                }
-                bottomSheerDialog.show()
-            }
-        } catch (e: Exception) {
-        }
-    }
 
     fun addSpacesBetweenLetters(input: String): String {
         // Convert the string to a list of characters, join them with spaces, and convert back to string

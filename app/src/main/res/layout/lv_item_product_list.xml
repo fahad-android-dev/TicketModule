@@ -13,7 +13,6 @@
         android:elevation="@dimen/_2sdp"
         android:layout_marginHorizontal="@dimen/_6sdp"
         android:background="@drawable/bg_rounded_corners"
-        android:backgroundTint="#E8F0FE"
         android:layout_marginTop="@dimen/_5sdp"
         android:paddingVertical="@dimen/_50sdp"
         android:layout_marginBottom="@dimen/_10sdp"

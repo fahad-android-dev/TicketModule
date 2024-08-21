@@ -16,6 +16,7 @@ socketVersion = "2.0.0"
 nearpayVersion = "2.1.87"
 datastoreVersion = "1.0.0"
 gsonVersion = "2.9.1"
+xmlVersion = "5.2.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -36,6 +37,8 @@ nearpay = { group = "io.nearpay", name = "nearpay-sdk-store", version.ref = "nea
 datastorePref = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastoreVersion"}
 datastore = { group = "androidx.datastore", name = "datastore-core", version.ref = "datastoreVersion"}
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gsonVersion"}
+poi-xml = { group = "org.apache.poi", name = "poi-ooxml", version.ref = "xmlVersion"}
+poi = { group = "org.apache.poi", name = "poi", version.ref = "xmlVersion"}
 
 
 [plugins]

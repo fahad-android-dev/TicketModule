@@ -8,7 +8,6 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".mvvm.main.view.MainActivity">
@@ -19,9 +18,9 @@
             android:fillViewport="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/main"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#F7B5CA">
+                android:layout_height="match_parent">
 
                 <include
                     android:id="@+id/layoutToolbar"
@@ -101,8 +100,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         android:scaleType="fitCenter"
-                        app:layout_constraintTop_toBottomOf="@+id/txtServiceName"
-                        android:src="@drawable/ic_app_logo" />
+                        app:layout_constraintTop_toBottomOf="@+id/txtServiceName" />
 
 
 

@@ -1,6 +1,6 @@
 package com.orbits.ticketmodule.mvvm.main.view
 
-import com.orbits.ticketmodule.helper.AppNavigation.navigateToMain
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,6 +17,8 @@ import com.orbits.ticketmodule.helper.Constants
 import com.orbits.ticketmodule.helper.Dialogs
 import com.orbits.ticketmodule.helper.Dialogs.showCustomAlert
 import com.orbits.ticketmodule.helper.Extensions
+import com.orbits.ticketmodule.helper.FileConfig.image_FilePaths
+import com.orbits.ticketmodule.helper.FileConfig.readImageFile
 import com.orbits.ticketmodule.helper.LocaleHelper
 import com.orbits.ticketmodule.helper.PrefUtils.getServerAddress
 import com.orbits.ticketmodule.helper.PrefUtils.saveServerAddress
@@ -34,6 +36,7 @@ class HomeFragment : BaseFragment() {
     private var productListAdapter = ProductListAdapter()
     private var arrListServices = ArrayList<ProductListDataModel>()
     private var ticketId = ""
+    private var pos = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +60,12 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.rvProducts.adapter = productListAdapter
+
+        readImageFile()
+        if (image_FilePaths?.size == 1) {
+            binding.ivCompany.setImageDrawable(Drawable.createFromPath(image_FilePaths?.get(pos)))
+        }
+
 
         initializeToolbar()
     }
@@ -91,7 +100,7 @@ class HomeFragment : BaseFragment() {
                                             port
                                         ) // Pass necessary
 
-                                        Extensions.handler(2000) {
+                                        Extensions.handler(1000) {
                                             mActivity.hideProgressDialog()
                                             println("here is list ${mActivity.viewModel.dataList}")
                                             if (mActivity.viewModel.dataList.isNotEmpty()) {
@@ -113,22 +122,6 @@ class HomeFragment : BaseFragment() {
         )
     }
 
-    private fun showChangeLanguageAlert() {
-        showCustomAlert(
-            activity = mActivity,
-            title = getString(R.string.alert_title_lang),
-            msg = resources.getString(R.string.alert_language),
-            yesBtn = resources.getString(R.string.yes_lang),
-            noBtn = resources.getString(R.string.no_lang),
-            alertDialogInterface = object : AlertDialogInterface {
-                override fun onYesClick() {
-                    LocaleHelper.changeLanguage(mActivity)
-                    mActivity.navigateToMain {}
-                }
-
-                override fun onNoClick() {}
-            })
-    }
 
 
     private fun setData(list: ArrayList<ProductListDataModel>) {
@@ -140,7 +133,7 @@ class HomeFragment : BaseFragment() {
                 if (type == "itemClicked") {
                     mActivity.showProgressDialog()
                     sendMessage(list[position].id ?: "", list[position].name ?: "")
-                    Extensions.handler(2000) {
+                    Extensions.handler(1000) {
                         mActivity.hideProgressDialog()
                         if (mActivity.viewModel.dataModel != null) {
                             findNavController().navigate(R.id.action_to_navigation_confirmation)
@@ -173,7 +166,7 @@ class HomeFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         mActivity.viewModel.dataModel = null
-        Extensions.handler(2000) {
+        Extensions.handler(1000) {
             println("here is list ${mActivity.viewModel.dataList}")
             if (mActivity.viewModel.dataList.isNotEmpty()) {
                 setData(mActivity.viewModel.dataList)

@@ -7,10 +7,6 @@
         <import type="android.view.View"/>
     </data>
 
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/rootLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -32,19 +28,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/navigationView"
-            android:layout_width="@dimen/_240sdp"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:layout_marginEnd="@dimen/_40sdp"
-            android:fitsSystemWindows="true"
-            android:theme="@style/NavigationDrawerText"
-            app:itemBackground="@color/app_bg_color"
-            app:itemIconPadding="@dimen/_10sdp"
-            app:itemTextAppearance="@style/fontRegular">
-
-        </com.google.android.material.navigation.NavigationView>
-    </androidx.drawerlayout.widget.DrawerLayout>
 
 </layout>
