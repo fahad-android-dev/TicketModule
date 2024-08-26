@@ -17,6 +17,7 @@ nearpayVersion = "2.1.87"
 datastoreVersion = "1.0.0"
 gsonVersion = "2.9.1"
 xmlVersion = "5.2.3"
+flexboxVersion = "3.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -39,6 +40,7 @@ datastore = { group = "androidx.datastore", name = "datastore-core", version.ref
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gsonVersion"}
 poi-xml = { group = "org.apache.poi", name = "poi-ooxml", version.ref = "xmlVersion"}
 poi = { group = "org.apache.poi", name = "poi", version.ref = "xmlVersion"}
+flexbox = { group = "com.google.android.flexbox", name = "flexbox", version.ref = "flexboxVersion"}
 
 
 [plugins]

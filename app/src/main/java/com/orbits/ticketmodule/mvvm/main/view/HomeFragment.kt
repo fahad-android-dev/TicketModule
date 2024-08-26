@@ -8,6 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import com.google.gson.JsonObject
 import com.orbits.ticketmodule.R
 import com.orbits.ticketmodule.databinding.FragmentHomeBinding
@@ -59,15 +63,28 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.rvProducts.adapter = productListAdapter
+
+
 
         readImageFile()
         if (image_FilePaths?.size == 1) {
             binding.ivCompany.setImageDrawable(Drawable.createFromPath(image_FilePaths?.get(pos)))
+            binding.layoutToolbar.ivToolbarLogo.setImageDrawable(Drawable.createFromPath(image_FilePaths?.get(pos)))
         }
 
-
         initializeToolbar()
+        initializeFields()
+    }
+
+    private fun initializeFields(){
+
+       /* if (!mActivity.getServerAddress()?.ipAddress.isNullOrEmpty()){
+            mActivity.viewModel.connectWebSocket(
+                mActivity.getServerAddress()?.ipAddress ?: "",
+                mActivity.getServerAddress()?.port ?: ""
+            )
+        }
+        initData()*/
     }
 
 
@@ -100,14 +117,7 @@ class HomeFragment : BaseFragment() {
                                             port
                                         ) // Pass necessary
 
-                                        Extensions.handler(1000) {
-                                            mActivity.hideProgressDialog()
-                                            println("here is list ${mActivity.viewModel.dataList}")
-                                            if (mActivity.viewModel.dataList.isNotEmpty()) {
-                                                setData(mActivity.viewModel.dataList)
-                                                ticketId = generateCustomId()
-                                            }
-                                        }
+                                        initData()
                                     }
                                 }
                             )
@@ -122,18 +132,47 @@ class HomeFragment : BaseFragment() {
         )
     }
 
+    private fun initData(){
+        Extensions.handler(700) {
+            mActivity.hideProgressDialog()
+            println("here is list ${mActivity.viewModel.dataList}")
+            if (mActivity.viewModel.dataList.isNotEmpty()) {
+                setData(mActivity.viewModel.dataList)
+                ticketId = generateCustomId()
+            }
+        }
+    }
+
 
 
     private fun setData(list: ArrayList<ProductListDataModel>) {
         arrListServices.clear()
         arrListServices.addAll(list)
+        val spanCount = 2 // Span count for GridLayoutManager
+
+        // Create a GridLayoutManager
+        val layoutManager = GridLayoutManager(mActivity, spanCount)
+        if (arrListServices.size > 2) {
+            println("here is size 000 ${arrListServices.size}")
+            // Set horizontal orientation and span count
+            layoutManager.spanCount = 2
+            layoutManager.orientation = GridLayoutManager.HORIZONTAL
+        } else {
+            println("here is size 111 ${arrListServices.size}")
+            // Set vertical orientation and span count
+            layoutManager.spanCount = 1
+            layoutManager.orientation = GridLayoutManager.VERTICAL
+        }
+        binding.rvProducts.layoutManager = layoutManager
+        binding.rvProducts.adapter = productListAdapter
+
 
         productListAdapter.onClickEvent = object : CommonInterfaceClickEvent {
             override fun onItemClick(type: String, position: Int) {
                 if (type == "itemClicked") {
                     mActivity.showProgressDialog()
                     sendMessage(list[position].id ?: "", list[position].name ?: "")
-                    Extensions.handler(1000) {
+                    Extensions.handler(800) {
                         mActivity.hideProgressDialog()
                         if (mActivity.viewModel.dataModel != null) {
                             findNavController().navigate(R.id.action_to_navigation_confirmation)

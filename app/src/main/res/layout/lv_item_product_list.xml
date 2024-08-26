@@ -8,12 +8,12 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rootLayout"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/_130sdp"
         android:layout_height="wrap_content"
         android:elevation="@dimen/_2sdp"
-        android:layout_marginHorizontal="@dimen/_6sdp"
+        android:layout_marginEnd="@dimen/_6sdp"
+        android:layout_marginStart="@dimen/_6sdp"
         android:background="@drawable/bg_rounded_corners"
-        android:layout_marginTop="@dimen/_5sdp"
         android:paddingVertical="@dimen/_50sdp"
         android:layout_marginBottom="@dimen/_10sdp"
         >

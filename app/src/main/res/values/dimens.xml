@@ -71,7 +71,7 @@
     <dimen name="edt_height">@dimen/_40sdp</dimen>
 
     <!--   toolbar   -->
-    <dimen name="tool_bar_height">@dimen/_44sdp</dimen>
+    <dimen name="tool_bar_height">@dimen/_48sdp</dimen>
     <dimen name="toolbar_header_text_size">@dimen/_15ssp</dimen>
 
 

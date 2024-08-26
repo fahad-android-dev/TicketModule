@@ -57,6 +57,7 @@ dependencies {
     implementation(libs.datastore)
     implementation(libs.gson)
     implementation(libs.poi)
+    implementation(libs.flexbox)
     implementation(libs.poi.xml)
     implementation(libs.datastorePref)
     implementation(libs.androidx.constraintlayout)
