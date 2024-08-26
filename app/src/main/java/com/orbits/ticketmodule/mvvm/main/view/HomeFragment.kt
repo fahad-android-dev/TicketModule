@@ -1,5 +1,6 @@
 package com.orbits.ticketmodule.mvvm.main.view
 
+import NetworkMonitor
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
@@ -21,6 +22,7 @@ import com.orbits.ticketmodule.helper.Constants
 import com.orbits.ticketmodule.helper.Dialogs
 import com.orbits.ticketmodule.helper.Dialogs.showCustomAlert
 import com.orbits.ticketmodule.helper.Extensions
+import com.orbits.ticketmodule.helper.Extensions.isInternetEnabled
 import com.orbits.ticketmodule.helper.FileConfig.image_FilePaths
 import com.orbits.ticketmodule.helper.FileConfig.readImageFile
 import com.orbits.ticketmodule.helper.LocaleHelper
@@ -39,6 +41,7 @@ class HomeFragment : BaseFragment() {
     private lateinit var binding: FragmentHomeBinding
     private var productListAdapter = ProductListAdapter()
     private var arrListServices = ArrayList<ProductListDataModel>()
+    private lateinit var networkMonitor: NetworkMonitor
     private var ticketId = ""
     private var pos = 0
 
@@ -59,12 +62,13 @@ class HomeFragment : BaseFragment() {
             false
         )
         return binding.root
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
+        binding.rvProducts.adapter = productListAdapter
 
         readImageFile()
         if (image_FilePaths?.size == 1) {
@@ -77,18 +81,27 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun initializeFields(){
+        Extensions.handler(500){
+            if (!mActivity.viewModel.isConnected){
+                networkMonitor = NetworkMonitor(mActivity) {
+                    // Network available, reconnect WebSocket
+                    if (!mActivity.getServerAddress()?.ipAddress.isNullOrEmpty()){
+                        mActivity.viewModel.connectWebSocket(
+                            mActivity.getServerAddress()?.ipAddress ?: "",
+                            mActivity.getServerAddress()?.port ?: ""
+                        )
+                    }
+                    initData()
+                }
+                networkMonitor.registerNetworkCallback()
 
-       /* if (!mActivity.getServerAddress()?.ipAddress.isNullOrEmpty()){
-            mActivity.viewModel.connectWebSocket(
-                mActivity.getServerAddress()?.ipAddress ?: "",
-                mActivity.getServerAddress()?.port ?: ""
-            )
+            }
         }
-        initData()*/
     }
 
 
     private fun initializeToolbar() {
+        println("here is one")
         setUpToolbar(
             binding.layoutToolbar,
             title = getString(R.string.ticket),

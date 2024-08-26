@@ -54,6 +54,11 @@ class WebSocketClient(private val serverUrl: String, private val messageListener
         webSocket?.send(jsonObject.toString())
     }
 
+    private fun reconnect() {
+        // Optionally add a delay or retry mechanism here
+        connect()
+    }
+
     fun disconnect() {
         println("here is WebSocket disconnected")
         webSocket?.close(1000, null)

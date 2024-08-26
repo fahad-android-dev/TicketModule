@@ -32,6 +32,7 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
@@ -467,14 +468,13 @@ object Extensions {
         setPageTransformer(pageTransformer)
     }
 
-    /*fun Context.isInternetEnabled(view: View ?= null, swipeRefreshLayout: SwipeRefreshLayout? = null, block: () -> Unit) {
+    fun Context.isInternetEnabled(block: () -> Unit) {
         if (NetworkUtil.getConnectivityStatus(this)) {
             block()
         } else {
-            swipeRefreshLayout?.isRefreshing = false
-            (this as Activity).showSnackBar(resources.getString(R.string.no_internet))
+            Toast.makeText(this, resources.getString(R.string.no_internet), Toast.LENGTH_SHORT).show()
         }
-    }*/
+    }
 
     fun String?.asDouble(): Double {
         if (!this.isNullOrEmpty()) {
