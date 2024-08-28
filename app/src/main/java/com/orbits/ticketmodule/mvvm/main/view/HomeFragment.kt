@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -26,17 +27,19 @@ import com.orbits.ticketmodule.helper.Extensions.isInternetEnabled
 import com.orbits.ticketmodule.helper.FileConfig.image_FilePaths
 import com.orbits.ticketmodule.helper.FileConfig.readImageFile
 import com.orbits.ticketmodule.helper.LocaleHelper
+import com.orbits.ticketmodule.helper.NetworkChecker
 import com.orbits.ticketmodule.helper.PrefUtils.getServerAddress
 import com.orbits.ticketmodule.helper.PrefUtils.saveServerAddress
 import com.orbits.ticketmodule.helper.helper_model.ServerAddressModel
 import com.orbits.ticketmodule.interfaces.CommonInterfaceClickEvent
 import com.orbits.ticketmodule.interfaces.MessageListener
+import com.orbits.ticketmodule.interfaces.NetworkListener
 import com.orbits.ticketmodule.mvvm.main.adapter.ProductListAdapter
 import com.orbits.ticketmodule.mvvm.main.model.ProductListDataModel
 import com.orbits.ticketmodule.mvvm.payment.view.ProductObj
 
 
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseFragment() , NetworkListener {
     private lateinit var mActivity: MainActivity
     private lateinit var binding: FragmentHomeBinding
     private var productListAdapter = ProductListAdapter()
@@ -44,10 +47,12 @@ class HomeFragment : BaseFragment() {
     private lateinit var networkMonitor: NetworkMonitor
     private var ticketId = ""
     private var pos = 0
+    private var networkChecker :NetworkChecker ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mActivity = activity as MainActivity
+        networkChecker = NetworkChecker(mActivity)
 
     }
 
@@ -69,6 +74,7 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.rvProducts.adapter = productListAdapter
+        networkChecker?.setNetworkListener(this)
 
         readImageFile()
         if (image_FilePaths?.size == 1) {
@@ -81,22 +87,8 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun initializeFields(){
-        Extensions.handler(500){
-            if (!mActivity.viewModel.isConnected){
-                networkMonitor = NetworkMonitor(mActivity) {
-                    // Network available, reconnect WebSocket
-                    if (!mActivity.getServerAddress()?.ipAddress.isNullOrEmpty()){
-                        mActivity.viewModel.connectWebSocket(
-                            mActivity.getServerAddress()?.ipAddress ?: "",
-                            mActivity.getServerAddress()?.port ?: ""
-                        )
-                    }
-                    initData()
-                }
-                networkMonitor.registerNetworkCallback()
+        networkChecker?.start()
 
-            }
-        }
     }
 
 
@@ -230,6 +222,31 @@ class HomeFragment : BaseFragment() {
     override fun onDestroy() {
         super.onDestroy()
         mActivity.viewModel.webSocketClient?.disconnect()
+    }
+
+
+    override fun onSuccess() {
+        println("here is connected")
+        Extensions.handler(400){
+            if (!mActivity.viewModel.isConnected){
+                networkMonitor = NetworkMonitor(mActivity) {
+                    // Network available, reconnect WebSocket
+                    if (!mActivity.getServerAddress()?.ipAddress.isNullOrEmpty()){
+                        mActivity.viewModel.connectWebSocket(
+                            mActivity.getServerAddress()?.ipAddress ?: "",
+                            mActivity.getServerAddress()?.port ?: ""
+                        )
+                    }
+                    initData()
+                }
+                networkMonitor.registerNetworkCallback()
+                networkChecker?.start()
+            }
+        }
+    }
+
+    override fun onFailure() {
+        Toast.makeText(mActivity,"Failed", Toast.LENGTH_SHORT).show()
     }
 
 
