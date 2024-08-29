@@ -100,6 +100,10 @@ class ConfirmationFragment : BaseFragment() {
         val token = model?.getAsJsonObject("transaction")?.get("token")?.asString
         binding.txtTokenValue.text = token
         binding.txtServiceName.text = "Service Name : ${model?.get("serviceName")?.asString}"
+
+        Extensions.handler(4000){
+            findNavController().popBackStack()
+        }
     }
 
 }

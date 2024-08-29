@@ -88,6 +88,22 @@ class HomeFragment : BaseFragment() , NetworkListener {
 
     private fun initializeFields(){
         networkChecker?.start()
+        Extensions.handler(400){
+            if (!mActivity.viewModel.isConnected){
+                networkMonitor = NetworkMonitor(mActivity) {
+                    // Network available, reconnect WebSocket
+                    if (!mActivity.getServerAddress()?.ipAddress.isNullOrEmpty()){
+                        mActivity.viewModel.connectWebSocket(
+                            mActivity.getServerAddress()?.ipAddress ?: "",
+                            mActivity.getServerAddress()?.port ?: ""
+                        )
+                    }
+                    initData()
+                }
+                networkMonitor.registerNetworkCallback()
+                networkChecker?.start()
+            }
+        }
 
     }
 
@@ -227,22 +243,7 @@ class HomeFragment : BaseFragment() , NetworkListener {
 
     override fun onSuccess() {
         println("here is connected")
-        Extensions.handler(400){
-            if (!mActivity.viewModel.isConnected){
-                networkMonitor = NetworkMonitor(mActivity) {
-                    // Network available, reconnect WebSocket
-                    if (!mActivity.getServerAddress()?.ipAddress.isNullOrEmpty()){
-                        mActivity.viewModel.connectWebSocket(
-                            mActivity.getServerAddress()?.ipAddress ?: "",
-                            mActivity.getServerAddress()?.port ?: ""
-                        )
-                    }
-                    initData()
-                }
-                networkMonitor.registerNetworkCallback()
-                networkChecker?.start()
-            }
-        }
+
     }
 
     override fun onFailure() {
