@@ -61,7 +61,7 @@ class ConfirmationFragment : BaseFragment() {
         setUpToolbar(
             binding.layoutToolbar,
             title = getString(R.string.ticket),
-            isBackArrow = true,
+            isBackArrow = false,
             navController = findNavController(),
             toolbarClickListener = object : CommonInterfaceClickEvent {
                 override fun onToolBarListener(type: String) {
@@ -101,7 +101,7 @@ class ConfirmationFragment : BaseFragment() {
         binding.txtTokenValue.text = token
         binding.txtServiceName.text = "Service Name : ${model?.get("serviceName")?.asString}"
 
-        Extensions.handler(4000){
+        Extensions.handler(2000){
             findNavController().popBackStack()
         }
     }
