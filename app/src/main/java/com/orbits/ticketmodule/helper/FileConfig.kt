@@ -26,11 +26,15 @@ object FileConfig {
         // Example of setting data
         val rowTwo = sheet.createRow(2)
         rowTwo.createCell(0).setCellValue(Constants.TICKET_TILES_TEXT_COLOR)
-        rowTwo.createCell(1).setCellValue("#FF0000")
+        rowTwo.createCell(1).setCellValue("#295F98")
 
         val rowThree = sheet.createRow(4)
         rowThree.createCell(0).setCellValue(Constants.TICKET_CONFIRM_COLOR)
         rowThree.createCell(1).setCellValue("#F7B5CA")
+
+        /*val rowFour = sheet.createRow(6)
+        rowFour.createCell(0).setCellValue(Constants.TICKET_TILES_CURVE)
+        rowFour.createCell(1).setCellValue("5")*/
 
         // Write the output to the file
         FileOutputStream(filePath).use { outputStream ->

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.orbits.ticketmodule.R
 import com.orbits.ticketmodule.databinding.LvItemProductListBinding
 import com.orbits.ticketmodule.helper.Constants
+import com.orbits.ticketmodule.helper.Extensions.asFloat
 import com.orbits.ticketmodule.helper.FileConfig.image_FilePaths
 import com.orbits.ticketmodule.helper.FileConfig.readExcelFile
 import com.orbits.ticketmodule.helper.FileConfig.readImageFile
@@ -43,9 +44,15 @@ class ProductListAdapter() : RecyclerView.Adapter<ProductListAdapter.MyViewHolde
 
 
         val backgroundColor = colors[Constants.TICKET_TILES_COLOR]
+      //  val radius = Constants.TICKET_TILES_CURVE.toDoubleOrNull() // Try to convert it to a Double
+
         if (backgroundColor != null) {
             holder.binding.rootLayout.setBackgroundColor(Color.parseColor(backgroundColor))
         }
+
+        /*if (radius != null) {
+           // holder.binding.rootLayout.radius = radius.toFloat()
+        }*/
 
         val textColor = colors[Constants.TICKET_TILES_TEXT_COLOR]
         if (textColor != null) {

@@ -32,6 +32,7 @@ object Constants {
     )
 
     const val TICKET_TILES_COLOR = "TicketColor"
+    const val TICKET_TILES_CURVE = "TicketTilesCurve"
     const val TICKET_CONFIRM_COLOR = "TicketConfirmColor"
     const val TICKET_TILES_TEXT_COLOR = "TicketTextColor"
     const val COMPANY_LOGO = "CompanyLogo"
