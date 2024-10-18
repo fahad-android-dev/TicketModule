@@ -38,6 +38,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    packagingOptions {
+        resources.excludes.add("META-INF/*")
+    }
 }
 
 dependencies {
@@ -59,6 +63,7 @@ dependencies {
     implementation(libs.poi)
     implementation(libs.flexbox)
     implementation(libs.poi.xml)
+    implementation(libs.firebase.crashlytics.buildtools)
     implementation(libs.datastorePref)
     implementation(libs.androidx.constraintlayout)
     testImplementation(libs.junit)

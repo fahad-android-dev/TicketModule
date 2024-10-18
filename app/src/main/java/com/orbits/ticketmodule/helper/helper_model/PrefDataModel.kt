@@ -25,5 +25,13 @@ data class Device(
 
 data class AppConfigModel(
     var lang :String = "en",
-    var cartBadgeCount :String = "0"
+    var cartBadgeCount :String = "0",
+
+    var customerCode: String? = null,
+    var invoice: String? = null,
+    var branchCode: String? = null,
+    var email: String? = null,
+    var phone: String? = null,
+    var staffId: String? = null,
+    var password: String? = null,
 )

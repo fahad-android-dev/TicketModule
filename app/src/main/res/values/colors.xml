@@ -74,6 +74,7 @@
 
     <color name="red_color">#EE4B2B</color>
     <color name="cream_color">#E2DABC</color>
+    <color name="text_shadow_white">#000</color>
 
 
 </resources>

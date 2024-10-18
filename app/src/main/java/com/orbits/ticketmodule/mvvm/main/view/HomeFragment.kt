@@ -1,13 +1,16 @@
 package com.orbits.ticketmodule.mvvm.main.view
 
 import NetworkMonitor
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -23,8 +26,10 @@ import com.orbits.ticketmodule.helper.Constants
 import com.orbits.ticketmodule.helper.Dialogs
 import com.orbits.ticketmodule.helper.Dialogs.showCustomAlert
 import com.orbits.ticketmodule.helper.Extensions
+import com.orbits.ticketmodule.helper.Extensions.handler
 import com.orbits.ticketmodule.helper.Extensions.isInternetEnabled
 import com.orbits.ticketmodule.helper.FileConfig.image_FilePaths
+import com.orbits.ticketmodule.helper.FileConfig.readExcelFile
 import com.orbits.ticketmodule.helper.FileConfig.readImageFile
 import com.orbits.ticketmodule.helper.LocaleHelper
 import com.orbits.ticketmodule.helper.NetworkChecker
@@ -75,13 +80,49 @@ class HomeFragment : BaseFragment() , NetworkListener {
         networkChecker?.setNetworkListener(this)
 
         readImageFile()
-        if (image_FilePaths?.size == 1) {
-            binding.ivCompany.setImageDrawable(Drawable.createFromPath(image_FilePaths?.get(pos)))
-            binding.layoutToolbar.ivToolbarLogo.setImageDrawable(Drawable.createFromPath(image_FilePaths?.get(pos)))
+        handler(400){
+            if (image_FilePaths?.isNotEmpty() == true) {
+                image_FilePaths?.forEach { filePath ->
+                    // Extract the filename from the file path
+                    val fileName = filePath?.substringAfterLast("/")?.substringBeforeLast(".") // Get the filename
+
+                    println("here is bg applied file: $fileName")
+
+                    // Check if the filename is "bg"
+                    if (fileName == "bg") {
+                        println("here is bg applied")
+                        // Apply the image to the main layout background
+                        binding.main.background = Drawable.createFromPath(filePath)
+                    }
+                    else if (fileName == "top"){
+                        binding.layoutToolbar.root.isVisible = true
+                        binding.layoutToolbar.ivToolbarLogo.setImageDrawable(Drawable.createFromPath(filePath))
+                    }
+
+                    else {
+                        // Optionally handle other cases or log a message
+                        binding.ivCompany.setImageDrawable(Drawable.createFromPath(filePath))
+                        binding.layoutToolbar.root.isVisible = false
+
+                        val colors = readExcelFile(
+                            Environment.getExternalStorageDirectory()
+                                .toString() + "/Ticket_Config/Config.xls"
+                        )
+
+                        val backgroundColor = colors[Constants.TICKET_CONFIRM_COLOR]
+                        if (backgroundColor != null) {
+                            //binding.main.setBackgroundColor(Color.parseColor(backgroundColor))
+                        }
+
+                    }
+                }
+            }
         }
+
 
         initializeToolbar()
         initializeFields()
+        onClickListeners()
     }
 
     private fun initializeFields(){
@@ -89,7 +130,6 @@ class HomeFragment : BaseFragment() , NetworkListener {
         Extensions.handler(400){
             networkChecker?.start()
         }
-
     }
 
 
@@ -104,29 +144,7 @@ class HomeFragment : BaseFragment() , NetworkListener {
                 override fun onToolBarListener(type: String) {
                     when (type) {
                         Constants.TOOLBAR_ICON_ONE -> {
-                            Dialogs.showPairingDialog(
-                                activity = mActivity,
-                                alertDialogInterface = object : AlertDialogInterface {
-                                    override fun onConnectionConfirm(
-                                        ipAddress: String,
-                                        port: String,
-                                    ) {
-                                        mActivity.showProgressDialog()
-                                        mActivity.saveServerAddress(
-                                            ServerAddressModel(
-                                                ipAddress = ipAddress, port = port
 
-                                            )
-                                        )
-                                        mActivity.viewModel.connectWebSocket(
-                                            ipAddress,
-                                            port
-                                        ) // Pass necessary
-
-                                        initData()
-                                    }
-                                }
-                            )
                         }
 
                         Constants.TOOLBAR_ICON_TWO -> {
@@ -162,7 +180,7 @@ class HomeFragment : BaseFragment() , NetworkListener {
             println("here is size 000 ${arrListServices.size}")
             // Set horizontal orientation and span count
             layoutManager.spanCount = 2
-            layoutManager.orientation = GridLayoutManager.HORIZONTAL
+            layoutManager.orientation = GridLayoutManager.VERTICAL
         } else {
             println("here is size 111 ${arrListServices.size}")
             // Set vertical orientation and span count
@@ -189,6 +207,35 @@ class HomeFragment : BaseFragment() , NetworkListener {
         }
 
         productListAdapter.setData(arrListServices)
+    }
+
+    private fun onClickListeners(){
+        binding.txtDate.setOnLongClickListener {
+            Dialogs.showPairingDialog(
+                activity = mActivity,
+                alertDialogInterface = object : AlertDialogInterface {
+                    override fun onConnectionConfirm(
+                        ipAddress: String,
+                        port: String,
+                    ) {
+                        mActivity.showProgressDialog()
+                        mActivity.saveServerAddress(
+                            ServerAddressModel(
+                                ipAddress = ipAddress, port = port
+
+                            )
+                        )
+                        mActivity.viewModel.connectWebSocket(
+                            ipAddress,
+                            port
+                        ) // Pass necessary
+
+                        initData()
+                    }
+                }
+            )
+            true // Return true to indicate the long press event was handled
+        }
     }
 
     private fun sendMessage(serviceId: String, serviceType: String) {

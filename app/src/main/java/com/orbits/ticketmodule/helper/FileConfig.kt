@@ -1,6 +1,7 @@
 package com.orbits.ticketmodule.helper
 
 import android.os.Environment
+import org.apache.poi.ss.usermodel.CellType
 import org.apache.poi.ss.usermodel.Sheet
 import org.apache.poi.ss.usermodel.Workbook
 import org.apache.poi.ss.usermodel.WorkbookFactory
@@ -32,9 +33,9 @@ object FileConfig {
         rowThree.createCell(0).setCellValue(Constants.TICKET_CONFIRM_COLOR)
         rowThree.createCell(1).setCellValue("#F7B5CA")
 
-        /*val rowFour = sheet.createRow(6)
+        val rowFour = sheet.createRow(6)
         rowFour.createCell(0).setCellValue(Constants.TICKET_TILES_CURVE)
-        rowFour.createCell(1).setCellValue("5")*/
+        rowFour.createCell(1).setCellValue("20")
 
         // Write the output to the file
         FileOutputStream(filePath).use { outputStream ->
@@ -58,11 +59,25 @@ object FileConfig {
                     val keyCell = row.getCell(0)
                     val valueCell = row.getCell(1)
 
-                    // Check if both cells are not null and have string values
                     if (keyCell != null && valueCell != null) {
-                        val key = keyCell.stringCellValue
-                        val value = valueCell.stringCellValue
-                        colors[key] = value
+                        // Get the key as a string
+                        val key = when (keyCell.cellType) {
+                            CellType.STRING -> keyCell.stringCellValue
+                            CellType.NUMERIC -> keyCell.numericCellValue.toString() // Convert numeric to string
+                            else -> "" // Handle other cell types if necessary
+                        }
+
+                        // Get the value as a string
+                        val value = when (valueCell.cellType) {
+                            CellType.STRING -> valueCell.stringCellValue
+                            CellType.NUMERIC -> valueCell.numericCellValue.toString() // Convert numeric to string
+                            else -> "" // Handle other cell types if necessary
+                        }
+
+                        // Ensure key and value are not empty before adding them to the map
+                        if (key.isNotEmpty() && value.isNotEmpty()) {
+                            colors[key] = value
+                        }
                     }
                 }
             }

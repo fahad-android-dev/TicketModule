@@ -68,9 +68,10 @@
 
             <ImageView
                 android:id="@+id/ivToolbarLogo"
-                android:layout_width="@dimen/_150sdp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="@dimen/_14sdp"
+                android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -83,6 +84,7 @@
                 android:id="@+id/conIconOne"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 

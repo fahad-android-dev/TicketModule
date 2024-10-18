@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:background="@color/white"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/txtLicenseDialogTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:drawablePadding="10dp"
+            android:padding="10dp"
+            android:text="License Authentication"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#00BFFF"
+            android:textStyle="bold" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!--<EditText
+                    android:id="@+id/edtCustCode"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    style="@style/CommonInputEditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_38sdp"
+                    android:hint="customer code"
+                    android:imeOptions="actionDone"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:inputType="textPassword" />
+
+                <EditText
+                    android:id="@+id/edtInvoiceNumber"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    style="@style/CommonInputEditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_38sdp"
+                    android:hint="invoice number"
+                    android:imeOptions="actionDone"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:inputType="textPassword" />
+
+                <EditText
+                    android:id="@+id/edtBranchCode"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    style="@style/CommonInputEditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_38sdp"
+                    android:hint="branch code"
+                    android:imeOptions="actionDone"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:inputType="textPassword" />
+
+                <EditText
+                    android:id="@+id/edtEmail"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    style="@style/CommonInputEditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_38sdp"
+                    android:hint="e-mail"
+                    android:imeOptions="actionDone"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:inputType="textPassword" />
+
+
+
+                <EditText
+                    android:id="@+id/edtPhone"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    style="@style/CommonInputEditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_38sdp"
+                    android:hint="phone number"
+                    android:imeOptions="actionDone"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:inputType="textPassword" />
+
+                <EditText
+                    android:id="@+id/edtStaff"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    style="@style/CommonInputEditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_38sdp"
+                    android:hint="staff-id"
+                    android:imeOptions="actionDone"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:inputType="textPassword" />
+
+
+                <EditText
+                    android:id="@+id/edtPassword"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    style="@style/CommonInputEditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_38sdp"
+                    android:hint="Password"
+                    android:imeOptions="actionDone"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:inputType="textPassword" />-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/tv_cust_code"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="35"
+                        android:paddingLeft="10dp"
+                        android:text="Customer code"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/text_shadow_white" />
+
+                    <EditText
+                        android:id="@+id/edtCustCode"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="65"
+                        android:hint="customer code"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:singleLine="true"
+
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_inv_num"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="35"
+                        android:paddingLeft="10dp"
+                        android:text="Invoice number"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/text_shadow_white" />
+
+                    <EditText
+                        android:id="@+id/edtInvoiceNumber"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="65"
+                        android:hint="invoice number"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:singleLine="true" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_branch_code"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="35"
+                        android:paddingLeft="10dp"
+                        android:text="Branch code"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/text_shadow_white" />
+
+                    <EditText
+                        android:id="@+id/edtBranchCode"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="65"
+                        android:hint="branch code"
+                        android:imeOptions="actionNext"
+                        android:singleLine="true" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_email"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="35"
+                        android:paddingLeft="10dp"
+                        android:text="E-mail"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/text_shadow_white" />
+
+                    <EditText
+                        android:id="@+id/edtEmail"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="65"
+                        android:hint="e-mail"
+                        android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress"
+                        android:singleLine="true" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_phone"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="35"
+                        android:paddingLeft="10dp"
+                        android:text="Phone number"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/text_shadow_white" />
+
+                    <EditText
+                        android:id="@+id/edtPhone"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="65"
+                        android:hint="phone number"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:singleLine="true" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_staff_id"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="35"
+                        android:paddingLeft="10dp"
+                        android:text="Staff-Id"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/text_shadow_white" />
+
+                    <EditText
+                        android:id="@+id/edtStaff"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="65"
+                        android:hint="staff-id"
+                        android:imeOptions="actionNext"
+                        android:singleLine="true" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_staff_pwd"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="35"
+                        android:paddingLeft="10dp"
+                        android:text="Password"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/text_shadow_white" />
+
+                    <EditText
+                        android:id="@+id/edtPassword"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="65"
+                        android:hint="password"
+                        android:imeOptions="actionDone"
+                        android:inputType="textPassword"
+                        android:singleLine="true" />
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/tvInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/text_shadow_white" />
+
+                <TextView
+                    android:id="@+id/tvInstructions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="* mandatory for full-license\n# either of these is mandatory for trial-license"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#7FFFD4"
+                    android:textStyle="italic" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="2"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_get_full_license"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_50sdp"
+                        android:layout_weight="1"
+                        android:textAllCaps="false"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:text="Get Full-License"
+                        android:textSize="@dimen/_12ssp" />
+
+                    <Button
+                        android:id="@+id/btn_get_trial_license"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_50sdp"
+                        android:layout_weight="1"
+                        android:textAllCaps="false"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:text="Get Trail-License"
+                        android:textSize="@dimen/_12ssp" />
+
+                </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2"
+                android:layout_marginTop="5dp"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_save_license"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:textAllCaps="false"
+                    android:text="Save"
+                    android:textSize="@dimen/_12ssp" />
+
+
+                <Button
+                    android:id="@+id/btn_exit_license"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:textAllCaps="false"
+                    android:text="Exit"
+                    android:textSize="@dimen/_12ssp" />
+
+            </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+</layout>
